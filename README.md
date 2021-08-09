@@ -1,6 +1,6 @@
 # FastAPI JWT
 _Login with json-web-token in Fastapi_
-![img_6.png](img_6.png)
+![img_6.png](images/img_6.png)
 
 ##  Intro: Quick guide to setup login with JWT in Fastapi
 Thinking: thông thường các bước xác thực User trong một service backend qua API thường diễn ra như sau:
@@ -44,7 +44,7 @@ Tại giao diện CLI, run command
 $ uvicorn main:app --reload
 ```
 Open webrowser to check http://localhost:8000/docs
-![alt text](step1.png "Step1")
+![alt text](images/step1.png "Step1")
 Call thử API xem có ra kết quả không nhé
 
 ## Step2: Tạo form login
@@ -75,10 +75,10 @@ def login(request_data: LoginRequest):
 ...
 ```
 Check webrower, trong request body đã show form rồi 
-![alt text](step2.png "Step2")
+![alt text](images/step2.png "Step2")
 
 Click **Try it out**, nhập thử username & password: test/test và check CLI
-![img_1.png](img_1.png)
+![img_1.png](images/img_1.png)
 
 ## Step3: function verify_password
 Nhập username, password tất nhiên sẽ cần 1 function để check xem username/password có đúng không, viết 1 function đơn giản check username và password có bằng admin/admin không
@@ -107,7 +107,7 @@ def login(request_data: LoginRequest):
 ```
 Logic là nếu username/password = admin/admin thì return Success, nếu không thì return 404 - User not found  
 Test thử trường hợp not found
-![img_2.png](img_2.png)
+![img_2.png](images/img_2.png)
 
 ## Step4: Generate & return token
 Khi nhập đúng username/password, api login cần trả ra JWT token, vậy nên giờ ta viết hàm gentoken
@@ -155,7 +155,7 @@ def login(request_data: LoginRequest):
 ...
 ```
 Time to test: thử call API và xem kết quả
-![img_3.png](img_3.png)
+![img_3.png](images/img_3.png)
 Kết quả là chuỗi token bao gồm 3 phần
 
 ## Step5: Required header Token khi call API books
@@ -184,7 +184,7 @@ def list_books():
 ...    
 ```
 Quay lại webrowser, có thể thấy biểu tượng khóa và button Authorize ở góc trên bên phải
-![img_4.png](img_4.png)
+![img_4.png](images/img_4.png)
 Call thử API /books mà không nhập token, sẽ thấy response `"detail": "Not authenticated"`
 
 ## Step6: validate_token
