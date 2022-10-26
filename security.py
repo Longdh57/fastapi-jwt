@@ -21,7 +21,7 @@ def validate_token(http_authorization_credentials=Depends(reusable_oauth2)) -> s
         payload = jwt.decode(http_authorization_credentials.credentials, SECRET_KEY, algorithms=[SECURITY_ALGORITHM])
         if datetime.fromtimestamp(payload.get('exp')) < datetime.now():
             raise HTTPException(status_code=403, detail="Token expired")
-        return payload.get('exp')
+        return payload.get('username')
     except jwt.exceptions.ExpiredSignatureError:
         raise HTTPException(status_code=401, detail="Signature has expired")
     except(jwt.PyJWTError, ValidationError):
