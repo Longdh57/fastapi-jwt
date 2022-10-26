@@ -19,11 +19,10 @@ def validate_token(http_authorization_credentials=Depends(reusable_oauth2)) -> s
     """
     try:
         payload = jwt.decode(http_authorization_credentials.credentials, SECRET_KEY, algorithms=[SECURITY_ALGORITHM])
-        if payload.get('username') < datetime.now():
+        if datetime.fromtimestamp(payload.get('exp')) < datetime.now():
             raise HTTPException(status_code=403, detail="Token expired")
-        return payload.get('username')
+        return payload.get('exp')
+    except jwt.exceptions.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Signature has expired")
     except(jwt.PyJWTError, ValidationError):
-        raise HTTPException(
-            status_code=403,
-            detail=f"Could not validate credentials",
-        )
+        raise HTTPException(status_code=403, detail=f"Could not validate credentials")
