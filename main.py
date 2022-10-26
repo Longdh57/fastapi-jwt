@@ -18,8 +18,8 @@ app = FastAPI(
 
 
 class LoginRequest(BaseModel):
-    username: str
-    password: str
+    username: str = "admin"
+    password: str = "admin"
 
 
 def verify_password(username, password):
